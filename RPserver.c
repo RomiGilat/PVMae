@@ -11,27 +11,29 @@
 #include <arpa/inet.h>
 #include <time.h>
 
+
 int main(int argc, char *argv[]){
 
-int fd, j, sock_server, sock_client, size, yes = 1, nsmpl, navg, rx;
-void *cfg, *dat;
+int fd, j, sock_server, sock_client, size, yes = 1, rx;
+void *cfg;
 char *name = "/dev/mem";
-uint32_t naverages=0, nsamples=0, timing=0;
 struct sockaddr_in addr;
 uint32_t command, value, tmp;
-uint32_t buffer[8192];
-clock_t time_begin;
-double time_spent;
-int measuring = 0;
-
+uint32_t count;// Hz
+uint32_t freq;
+uint32_t count_quater_period;
+uint32_t delay;
+uint32_t intcommand;
+uint32_t userInput=0;
 if((fd = open(name, O_RDWR)) < 0)
   {
     perror("open");
     return EXIT_FAILURE;
   }
 
-cfg = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x42000000);
+cfg = mmap(NULL, sysconf(_SC_PAGESIZE), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x41200000);
 
+while (1){
 if((sock_server = socket(AF_INET, SOCK_STREAM, 0)) < 0)
   {
     perror("socket");
@@ -53,26 +55,42 @@ listen(sock_server, 1024);
 printf("Listening on port 1001 ...\n");
 
 while(1){
+    count = *((uint32_t *)(cfg + 8));
+    freq=250000000/count;
+
+    count_quater_period=100000/(4*freq);//Lets say this will be max 16 bits
     if((sock_client = accept(sock_server, NULL, NULL)) < 0)
     {
       perror("accept");
-      return EXIT_FAILURE;
+      printf("I am at the if with the return\n");
+      break;
     }
     while (1){
-    rx = recv(sock_client, (char *)&command, 4, MSG_DONTWAIT);
+    rx = recv(sock_client, (char *)&command, 2, MSG_DONTWAIT);
       if (rx == 0) {
-         break;
-         measuring = 0;
+	 printf("no command\n");
+	 break;
       }
       if (rx>0){
+        char substring[2];
+        strncpy(substring, (char *)&command, 2);
+        intcommand=atoi(substring)&0xf;
+        if (intcommand>0x8){
+        userInput=0x1;
+        delay=(intcommand-0x8)*count_quater_period;}
+        else {
+        userInput=0x0;
+        delay=100;}//This value does not matter as long as it is not 0
 
-        value = command & 0xffffffff
-        *((int32_t *)(cfg + 0)) = value;
-        //break;
+        printf("%d\n", delay);
+        *((uint32_t *)(cfg + 0)) = (userInput<<16)+(delay);
+        break;
       }
 }
+close(sock_client);
 }
 
-
+}
 return 0;
 }
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CameraCCode" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/CameraCCode" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="./" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="FlyCapture2/lib/C/FlyCapture2_C_v100.lib" />
+					<Add library="ws2_32" />
+					<Add library="C:/MinGW/lib/glut32.lib" />
+					<Add library="OpenGL32" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/CameraCCode" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="FlyCapture2/lib/C/FlyCapture2_C_v100.lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add library="FlyCapture2/lib/C/FlyCapture2_C_v100.lib" />
+		</Linker>
+		<Unit filename="FlyCapture2Defs_C.h" />
+		<Unit filename="FlyCapture2Platform_C.h" />
+		<Unit filename="FlyCapture2_C.h" />
+		<Unit filename="Functions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Functions.h" />
+		<Unit filename="RPserver.c">
+			<Option compilerVar="CC" />
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
+		<Unit filename="image0.pgm" />
+		<Unit filename="image1.pgm" />
+		<Unit filename="image2.pgm" />
+		<Unit filename="image3.pgm" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

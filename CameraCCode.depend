@@ -1,0 +1,81 @@
+# depslib dependency file v1.0
+1716397173 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\main.c
+	"Functions.h"
+
+1711653872 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\initializecamera.c
+	<stdio.h>
+	"FlyCapture2_C.h"
+
+1712174807 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2_c.h
+	"FlyCapture2Platform_C.h"
+	"FlyCapture2Defs_C.h"
+
+1711653587 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2platform_c.h
+	<stdint.h>
+	<stdint.h>
+
+1690158177 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2defs_c.h
+	<stdlib.h>
+
+1712072451 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\initializecamera.h
+	<stdio.h>
+
+1690158177 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2_c.h
+	"FlyCapture2Platform_C.h"
+	"FlyCapture2Defs_C.h"
+
+1690158177 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2defs_c.h
+	<stdlib.h>
+
+1711653587 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\flycapture2platform_c.h
+	<stdint.h>
+	<stdint.h>
+
+1711654186 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\initializecamera.h
+	<stdio.h>
+
+1455509974 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\mman.h
+	<_mingw.h>
+	<sys/types.h>
+
+1713292037 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\convertdimension.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"ConvertDimension.h"
+
+1713291792 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\convertdimension.h
+
+1716397637 source:d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\functions.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<signal.h>
+	<winsock2.h>
+	"Functions.h"
+	"FlyCapture2_C.h"
+	<GL/glut.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1716398026 d:\tec\2024_trabajo_final_de_graduacion\proyecto\cameraccode\functions.h
+	"FlyCapture2_C.h"
+	<winsock2.h>
+	<complex.h>
+	<math.h>
+	<assert.h>
+	<time.h>
+	<string.h>
+	<signal.h>
+	"FlyCapture2_C.h"
+	<stdio.h>
+	<stdbool.h>
+	<unistd.h>
+	<fcntl.h>
+	<stdint.h>
+	<stdlib.h>
+	<windows.h>
+	<GL/glut.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
