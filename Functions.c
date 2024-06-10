@@ -157,8 +157,8 @@ double **CalculatePhase(int **arr0, int **arr1, int **arr2, int **arr3, int rows
     }
     for (int i=0; i<rows;i++){
         for (int j=0; j<col; j++){
-            arrA[i][j]=(arr0[i][j])-(arr2[i][j]);
-            arrB[i][j]=(arr3[i][j])-(arr1[i][j]);
+            arrB[i][j]=(arr0[i][j])-(arr2[i][j]);
+            arrA[i][j]=(arr3[i][j])-(arr1[i][j]);
             arrD[i][j]=arr0[i][j]+arr1[i][j]+arr2[i][j]+arr3[i][j];
             z = (double)arrA[i][j]+(double)arrB[i][j]*I;
             result[i][j] = carg(z);
