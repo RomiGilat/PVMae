@@ -157,8 +157,8 @@ double **CalculatePhase(int **arr0, int **arr1, int **arr2, int **arr3, int rows
     }
     for (int i=0; i<rows;i++){
         for (int j=0; j<col; j++){
-            arrB[i][j]=(arr0[i][j])-(arr2[i][j]);
-            arrA[i][j]=(arr3[i][j])-(arr1[i][j]);
+            arrA[i][j]=(arr0[i][j])-(arr2[i][j]);
+            arrB[i][j]=(arr3[i][j])-(arr1[i][j]);
             arrD[i][j]=arr0[i][j]+arr1[i][j]+arr2[i][j]+arr3[i][j];
             z = (double)arrA[i][j]+(double)arrB[i][j]*I;
             result[i][j] = carg(z);
@@ -253,28 +253,28 @@ void timer( int value){
     for (int k=0; k<4;k++){
         //To save data, just uncomment the 3 lines in each conditional
         if (k==0){
-        message = "09";
+        message = "08";
         arr0 = GrabImages(context,message, rows, col);
         //char buf0[16];
         //snprintf(buf0, 16, "image0_%d_.txt", globalcounter);
         //saveImageInt(arr0, rows, col, buf0);
         }
         else if (k==1){
-        message = "10";
+        message = "09";
         arr1 = GrabImages(context,message, rows, col);
         //char buf1[16];
         //snprintf(buf1, 16, "image1_%d_.txt", globalcounter);
         //saveImageInt(arr0, rows, col, buf1);
         }
         else if (k==2){
-        message = "11";
+        message = "10";
         arr2 = GrabImages(context,message, rows, col);
         //char buf2[16];
         //snprintf(buf2, 16, "image2_%d_.txt", globalcounter);
         //saveImageInt(arr0, rows, col, buf2);
         }
         else if (k==3){
-        message = "12";
+        message = "11";
         arr3 = GrabImages(context,message, rows, col);
         //char buf3[16];
         //snprintf(buf3, 16, "image3_%d.txt", globalcounter);
