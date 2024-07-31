@@ -46,3 +46,65 @@ module QPD # // Quarter Period Delay
         trigger <= signal;
     end
 endmodule
+
+
+intcommand: 12
+delay: 100
+delay: 100
+count: 249147
+count quarter period: 24.000000
+intcommand: 7
+delay: 100
+count: 250399
+count quarter period: 25.000000
+intcommand: 9
+delay: 25
+delay: 25
+count: 249147
+count quarter period: 24.000000
+intcommand: 7
+delay: 100
+count: 250399
+count quarter period: 25.000000
+intcommand: 10
+delay: 50
+delay: 50
+count: 250399
+count quarter period: 25.000000
+intcommand: 7
+delay: 100
+count: 250399
+count quarter period: 25.000000
+intcommand: 11
+delay: 75
+delay: 75
+count: 250399
+count quarter period: 25.000000
+intcommand: 7
+delay: 100
+count: 249147
+count quarter period: 24.000000
+intcommand: 12
+delay: 96
+delay: 96
+count: 249147
+count quarter period: 24.000000
+intcommand: 7
+delay: 100
+count: 249147
+count quarter period: 24.000000
+intcommand: 9
+delay: 24
+delay: 24
+count: 249147
+count quarter period: 24.000000
+intcommand: 7
+delay: 100
+count: 125199
+count quarter period: 12.000000
+intcommand: 10
+delay: 24
+delay: 24
+count: 249147
+count quarter period: 24.000000
+
