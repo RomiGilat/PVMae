@@ -62,10 +62,15 @@ module QPD # //Quarter Period Delay
         end
 
         if (counter == count_quater_period) begin
-            signal <= 1;
-            sentTrigger <= 1;
-            counter <= 0;
-            wantTrigger <= 0;
+            if(count >= 23000) begin
+                signal <= 1;
+                sentTrigger <= 1;
+                counter <= 0;
+                wantTrigger <= 0;
+            end
+            else if (count <=  23000) begin
+               signal <= 0;
+            end
         end
         else begin
             signal <= 0;
