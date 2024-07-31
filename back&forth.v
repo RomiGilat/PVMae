@@ -1,4 +1,4 @@
- `timescale 1ns / 1ps
+`timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -46,7 +46,10 @@ module QPD # //Quarter Period Delay
         end
         
         if(counter <= 23000) begin
-            //code here
+            //another check to make sure count is actually correct 
+            signal <= 0;
+            sentTrigger <= 0;
+            counter <= 0;
         end
 
         if (wantTrigger == 1) begin
@@ -58,7 +61,7 @@ module QPD # //Quarter Period Delay
             signal <= 0;
         end
 
-        if (counter >= 23000 && counter == count_quater_period) begin
+        if (counter == count_quater_period) begin
             signal <= 1;
             sentTrigger <= 1;
             counter <= 0;
