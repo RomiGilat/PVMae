@@ -30,6 +30,7 @@ int length; //Used to specify the area of the square in the middle of the result
 FILE *pdata; //Pointer to the file were the mean and standard deviation are being saved
 double **phase; //Matrix with the phase data
 double maxPhase; //Self explanatory
+char* IP; // this holds the IP that the user selects at the start of main.c
 SOCKET s; //Socket variable necessary to send information to the Red Pitaya.
 clock_t t;  //Optional variable, I used this to calculate the Frames per second of the program. Without data saving, program runs at about 2.3 fps
 
