@@ -1,5 +1,6 @@
 #include "Functions.h"
 //These variables need to be declared in this file, otherwise it does not run. They are related to the gui's scale
+
 struct pp // Structure to estimate the RGB color palette.
 {
   double x, r, g, b;
@@ -80,12 +81,19 @@ int InitializeConnection(){
 
 int communicate(char *message){ //Very important function, this is the one that actually sends info to the RP
     SOCKET s;
+    //message = "09";
     if((s = socket(AF_INET , SOCK_STREAM , 0 )) == INVALID_SOCKET)
     {
         printf("Could not create socket : %d" , WSAGetLastError());
     }
     struct sockaddr_in server;
-    server.sin_addr.s_addr = inet_addr("169.254.8.101"); //RP-f0949f default IP address (it changes after rebooting sometimes)
+    //server.sin_addr.s_addr = inet_addr("169.254.8.10s1"); //RP-f0949f default IP address (it changes after rebooting sometimes)
+    //server.sin_addr.s_addr = inet_addr("169.254.251.182"); // RP - f0949f alternate IP
+    //server.sin_addr.s_addr = inet_addr("169.254.2.239");
+    //server.sin_addr.s_addr = inet_addr("169.254.2.239"); //RP-f084ec default IP address (it changes after rebooting sometimes)
+   // server.sin_addr.s_addr = inet_addr("169.254.52.185"); // RP - f084ec for when its being a bitch
+
+    server.sin_addr.s_addr = inet_addr(IP);
     server.sin_family = AF_INET;
     server.sin_port = htons(1001);
 
@@ -148,12 +156,12 @@ double **CalculatePhase(int **arr0, int **arr1, int **arr2, int **arr3, int rows
     arrA = malloc(sizeof(int*)*rows);
     arrB = malloc(sizeof(int*)*rows);
     arrD = malloc(sizeof(int*)*rows);
-    result = malloc(sizeof(double*)*rows);
+    //result = malloc(sizeof(double*)*rows);
     for (int i=0;i<rows;i++){
         arrA[i]=malloc(sizeof(int)*col);
         arrB[i]=malloc(sizeof(int)*col);
         arrD[i]=malloc(sizeof(int)*col);
-        result[i]=malloc(sizeof(double)* col);
+        //result[i]=malloc(sizeof(double)* col);
     }
     for (int i=0; i<rows;i++){
         for (int j=0; j<col; j++){
@@ -161,11 +169,11 @@ double **CalculatePhase(int **arr0, int **arr1, int **arr2, int **arr3, int rows
             arrB[i][j]=(arr3[i][j])-(arr1[i][j]);
             arrD[i][j]=arr0[i][j]+arr1[i][j]+arr2[i][j]+arr3[i][j];
             z = (double)arrA[i][j]+(double)arrB[i][j]*I;
-            result[i][j] = carg(z);
+            phase[i][j] = carg(z);
             //printf("%f ",result[i][j]); //This is useful for troubleshooting
             if ((j>640-length/2)&(j<640+length/2)&(i>480-length/2)&(i<480+length/2)){ //Only data in the square of side length
                                                                                       //in the middle of the screen is taken into account
-                sum+=result[i][j];
+                sum+=phase[i][j];
                 totData+=1;
             }
         }
@@ -177,13 +185,16 @@ double **CalculatePhase(int **arr0, int **arr1, int **arr2, int **arr3, int rows
         free(arrD[i]);
     }
     mean=sum/totData;
-    deviation=stdDeviation(result, mean, rows, col);
+    deviation=stdDeviation(phase, mean, rows, col);
     printf("mean: %.6f rads\ndeviation: %.6f rads\n", mean, deviation);
     fprintf(pdata,"%.6f;%.6f\n", mean, deviation);
     free(arrA);
     free(arrB);
     free(arrD);
-    return result;
+
+    //phase = result;
+
+    return 0;
 }
 
 
@@ -253,7 +264,7 @@ void timer( int value){
     for (int k=0; k<4;k++){
         //To save data, just uncomment the 3 lines in each conditional
         if (k==0){
-        message = "08";
+        message = "12";
         arr0 = GrabImages(context,message, rows, col);
         //char buf0[16];
         //snprintf(buf0, 16, "image0_%d_.txt", globalcounter);
@@ -282,7 +293,9 @@ void timer( int value){
         }
     }
 
-    phase=CalculatePhase(arr0, arr1, arr2, arr3, rows, col);
+    // the culprit
+    CalculatePhase(arr0, arr1, arr2, arr3, rows, col);
+
     //char bufphase[16];
     //snprintf(bufphase, 16, "phase%d.txt", globalcounter);
     //saveImagePhase(phase, rows, col, bufphase);
@@ -297,13 +310,16 @@ void timer( int value){
     free(arr2);
     free(arr3);
 
+
     globalcounter=globalcounter+1;
+
+    /*
     if (globalcounter>100){ //this ends measurements
     t=clock()-t;
     double time_taken = ((double)t)/CLOCKS_PER_SEC;
     printf("Average frames per second: %f fps", ((double)globalcounter)/time_taken);
     return;}
-
+    */
     // Glut functions
     glutPostRedisplay();
     glutTimerFunc( 16, timer, 0 );
@@ -312,7 +328,6 @@ void timer( int value){
 void renderScene(void) {
 
     // load pgm
-
     // clear screen and get the context
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();//load identity matrix
@@ -323,6 +338,7 @@ void renderScene(void) {
     glBegin(GL_POINTS); //starts drawing of points
 
     // this gives us the normalized device coordinates of the window so we can plot the square in the center
+
     float *xcoords;
     float *ycoords;
     xcoords=malloc(sizeof(float*)*1280);
@@ -361,6 +377,8 @@ void renderScene(void) {
             glVertex3f(xcoords[col], ycoords[row], 0);
         }
     }
+    free(xcoords);
+    free(ycoords);
 
     glEnd();//end drawing of points
     scale (ppl0[0].x, ppl0[4].x, 1, 0);
@@ -375,6 +393,7 @@ void initializeGUI(int argc, char **argv) {
 	glutInitWindowSize(1300,1000);
 	glViewport(0, 0, 1280, 960); // this is where we define the normalized device coordinates "working area"
 	glutCreateWindow("PVMae");
+
 
     glutDisplayFunc(renderScene); // this display function will be called every frame
 
